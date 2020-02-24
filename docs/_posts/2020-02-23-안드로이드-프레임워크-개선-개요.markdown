@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "안드로이드 프레임워크 개선 계획"
+title: "안드로이드 프레임워크 개선 개요"
 date: 2020-02-24 00:00:00
 author: Keelim
 categories: AOSP
