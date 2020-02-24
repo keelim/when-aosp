@@ -3,7 +3,7 @@ GEM
   specs:
     addressable (2.4.0)
     colorator (1.1.0)
-    ffi (1.9.14)
+    ffi (1.9.24)
     forwardable-extended (2.6.0)
     jekyll (3.2.1)
       colorator (~> 1.0)
@@ -16,7 +16,7 @@ GEM
       rouge (~> 1.7)
       safe_yaml (~> 1.0)
     jekyll-archives (2.1.0)
-      jekyll (>= 2.4)
+      jekyll (>= 3.6.3)
     jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.4.0)
       sass (~> 3.4)
