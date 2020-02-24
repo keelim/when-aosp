@@ -4,6 +4,8 @@ title: "안드로이드 프레임워크 개선 계획(작성중)"
 date: 2019-03-14 11:20:22
 author: Keelim
 categories: AOSP
+toc: true
+toc_sticky: true
 ---
 
 # 안드로이드 개요
