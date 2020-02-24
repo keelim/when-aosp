@@ -50,6 +50,13 @@ disqus_shortname: keelim
 # Google analytics
 # ga_tracking_id: "UA-XXXX-1"
 
+# Analytics
+analytics:
+  provider               : "google-gtag" # 구글 어날리틱스 등록 false (default), "google", "google-universal", "custom"
+  google:
+    tracking_id          : "UA-158958259-1"
+    anonymize_ip         : # true, false (default)
+
 # Category descriptions (for archive pages)
 descriptions:
   - cat: jekyll
