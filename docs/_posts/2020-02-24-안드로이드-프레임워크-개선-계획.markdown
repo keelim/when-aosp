@@ -1,0 +1,90 @@
+---
+layout: post
+title: "안드로이드 프레임워크 개선 계획"
+date: 2019-03-14 11:20:22
+author: Keelim
+categories: AOSP
+---
+
+최종 수정일 : 2019-03-14
+
+# 안드로이드 개요
+안드로이드는 스마트폰, 태블릿 등과 같은 모바일 디바이스를 위한 오픈 소스 운영체제이다.  
+안드로이드는 프레임워크를 제공하여 모바일 디바이스용 애플리케이션 제작을 용이하게 해준다.  
+안드로이드는 리눅스 위에서 개발이 되었고, 리눅스를 부분적으로 수정하였다.  
+안드로이드를 여러 계층의 구조로 나누어 볼 수 있다.  
+
+---
+# 안드로이드 구조
+![텍스트](https://source.android.com/images/android_framework_details.png)
+
+사진출처 : https://source.android.com/images/android_framework_details.png
+
+안드로이드의 구조는 크게 애플리케이션(앱), 안드로이드 프레임워크, 네이티브 라이브러리, 안드로이드 런타임, 하드웨어 추상화 계층, 리눅스 커널로 구성된다.
+
+
+## 시스템 애플리케이션
+캘린더, 카메라, 브라우저 등과 같이 안드로이드는 주요 어플리케이션을 기본으로 제공한다.  
+어플리케이션은 안드로이드 프레임워크를 이용하여 개발한다.
+
+
+## 프레임워크
+안드로이드는 프레임워크를 제공하여 개발자가 Java를 이용하여 개발할 수 있도록 한다.  
+```android.*``` 에 있는 package를 이용하여 개발자가 어플을 만들 수 있다.  
+프레임워크들도 Java 코드이므로 이를 실행하기 위해서는 가상 머신이 필요하다.
+
+
+## 안드로이드 런타임(Android Runtime, ART)
+안드로이드 5.0 이전 버전에서는 Dalvik VM(Virtual Mahcine)이 Android 런타임이다.  
+Dalvik VM은 조금 다른 형태의 bytecode를 이용하고 이를 DEX(Dalvik Executables)라 부른다.  
+안드로이드 5.0 이후부터, 안드로이드 런타임이 Dalvik VM을 대체하였다.  
+파일형식인 DEX는 안드로이드 런타임에 그대로 남아있다. AOT(ahead-of-time) 컴파일러가 기본이다.  
+안드로이드 7.0 N 이후부터 ART에 JIT 컴파일이 추가되었다.  
+ART의 주요 기능으로는 AOT(Ahead-Of-Time) 및 JIT(Just-In-Time) 컴파일, 최적화된 가비지 수집(GC) 등이 있다.  
+
+### 참고
+JIT는 프로그램 최초 실행시마다 코드를 변환한다. AOT 컴파일러는 주로 설치시에 한번에 변화해 두고 저장한 뒤, 프로그램 실행시마다 변환된 코드를 읽어 들인다.
+
+
+## Native Libraries
+ART, 안드로이드 시스템 등을 구성하기 위한 핵심 라이브러리들이다.  
+Bionic을 비롯한 몇 가지 중요한 라이브러리들을 포함한다.
+
+
+## HAL(Hardware Abstraction Layer)
+HAL은 상위 수준의 Java API 프레임워크에 기기 하드웨어 기능을 노출하는 표준 인터페이스를 제공한다.  
+이를 통해 서로 다른 장치에서 호환성을 제공한다.
+
+
+## Linux Kernel
+안드로이드 플랫폼의 기반은 Linux 커널이다. 예를 들어, ART는 스레딩 및 하위 수준의 메모리 관리와 같은 기본 기능에 Linux 커널을 사용한다.  
+안드로이드는 자체적인 특징을 커널에 도입했다.  
+shared memory, binder(안드로이드 IPC, inter process communication에서 중요한 부분) 등이 안드로이드의 특징이다.
+
+---
+# 안드로이드의 또 다른 구성요소
+## JNI
+가상 머신 환경에서는 단점이 존재한다. 그래픽을 처리하는 경우, 디컴파일과 관련된 경우이다.  
+성능 최적화를 위해, reverse enginerring을 막기위해 JNI를 사용한다.  
+JNI를 통해 Java 코드가 C/C++로 작성된 라이브러리를 호출할 수 있다.  
+개발자는 NDK(Native Development Kit)를 이용하여 Native Libraries와 Binaries를 이용할 수 있다.
+
+
+## Native Binaries
+안드로이드의 주요 시스템 구성요소들은 C/C++로 구현된다. 그리고 이들은 Native Binaries로 컴파일된다.  
+사용자 어플은 Dalvik Bytecode로 컴파일 되고, bytecode는 ART에서 실행되는데 이는 ELF binary이다. (Executable and Linkable Format, 실행파일이나 목적파일을 위한 표준 파일 형식)  
+개발자들은 바이너리를 인식할 필요가 없지만 안드로이드에서는 중요한 역할을 한다.  
+리눅스 관점에서 보면 모든 실행파일(excutable)은 ELF binary이다.
+
+
+## Bionic
+안드로이드 운영체제를 위해 개발한 표준 C 라이브러리이다.  
+GNU C Library (GLibC)를 사용하는데 라이선스 문제가 해결되지 않아 자체 개발하였다.
+
+
+## HAL interface definition language (HIDL)
+안드로이드 8.0 Oreo에서 추가되었다.  
+HAL과 HAL 사용자들 사이에서 인터페이스를 명시하여 제공한다.  
+HAL을 리빌딩(rebuilding) 할 필요 없이 안드로이드 프레임워크를 교체할 수 있다.
+
+
