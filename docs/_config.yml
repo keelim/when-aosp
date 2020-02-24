@@ -45,7 +45,11 @@ highlightjs_theme: "github"
 #    tag: '/tag/:name/'
 
 # Disqus comments
-disqus_shortname: keelim
+comments:
+  provider               : "disqus" # 블로그 댓글 기능 false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
+  disqus:
+    shortname            : "https-keelim-github-io-aosp." # 블로그 댓글 기능 https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+
 
 # Google analytics
 # ga_tracking_id: "UA-XXXX-1"
