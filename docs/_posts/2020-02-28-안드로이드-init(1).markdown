@@ -1,0 +1,48 @@
+---
+layout: post
+title: "안드로이드 프레임워크  init (1) (추가 자료 필요)"
+date: 2020-02-28 00:00:01
+author: Keelim
+categories: AOSP
+comments: true
+toc: true
+toc_sticky: true
+---
+
+
+# init 프로세스
+
+리눅스에서 동작하는 모든 프로세스는 init 프로세스에서 생성, 실행
+리눅스 커널이 부팅 후, 사용자 영역에서 init 프로세스가 최초로 실행 후 시스템 동작에 필요한 다른 프로세스를 순차적 실행
+
+시스템 부팅이 완료, init 프로세스는 백그라운드 프로세스로 동작 다른 프로세스를 감시
+감시중인 프로세스가 종료 좀비 상태(?)가 되면 해당 프로세스가 가진 자원을 정상적으로 반환
+
+---
+# init 프로세스 실행 과정
+
+안드로이드에서 커널 부팅이 완료, 사용자 프로세스인 init 프로세스를 최초로 실행.  
+`start_kernel()` 함수, `init_post()` 함수, `run_init_process()` 함수가 순차적 실행. 마지막 단계에서 init 프로세스를 실행.  
+
+`init_post()` 함수는 `run_init_process()` 함수 호출.  
+`run_init_process()` 함수는 `execute_command`에 등록된 프로세스 파일의 경로(커널의 부팅 옵션으로 정의되어 있다.)를 가지고 `execve()` 시스템 콜을 호출.
+
+`execve()` 함수는 인자로 전달된 파일경로의 프로세스를 실행.  
+
+커널의 부팅 옵션으로 파일 경로가 `“init=/init”`으로 정의.  
+안드로이드 빌드 후 생성되는 루트 파일 시스템에서 최상위 디렉토리에 init 프로세스가 존재.  
+
+```c
+static void noinline init_post(){
+    if(execute_command){
+        run_init_process(execute_command);
+    }
+    run_init_process("sbin/init");
+    run_init_process("/etc/init");
+    run_init_process("/bin/init");
+    run_init_process("/bin/sh");
+}
+```
+
+해당 디텍토리 안 `init ` 파일이 없을 경우 커널 패닉 
+
