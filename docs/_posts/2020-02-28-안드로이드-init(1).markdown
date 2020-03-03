@@ -99,8 +99,6 @@ init.rc 파일을 읽어 파싱한 후 서비스 리스트와 액션 리스트�
 
 init 프로세스에서 전역 구조체로 선언된 service_list와 action_list에 연결리스트 형태로 등록.
 
-- - - (수정 필요)
-
 (4) QEMU 초기화  
 ```c
 qemu_init();  
@@ -112,9 +110,10 @@ qemu_init();
 snprintf(tmp, sizeof(tmp), “/init.%s.rc”, hardware);  
 parse_config_file(tmp);  
 ```
-init.{hardware}.rc 파일을 파싱한다. init.{hardware}.rc 파일로부터 서비스 리스트와 액션 리스트를 생성한다. 이 리스트들은 init.rc 파일에서 이미 생성한 서비스 리스트와 액션 리스트에 추가된다.  
+init.{hardware}.rc 파일을 파싱한다. init.{hardware}.rc 파일로부터 서비스 리스트와 액션 리스트를 생성
+이 리스트들은 init.rc 파일에서 이미 생성한 서비스 리스트와 액션 리스트에 추가
 
-(6)  
+(6) main()-early-init 
 ```c
 action_for_each_trigger(“early-init”, action_add_queue_tail);  
 drain_action_queue();  
