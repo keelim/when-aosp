@@ -49,7 +49,7 @@ highlightjs_theme: "github"
 disqus_shortname: https-keelim-github-io-aosp
 
 
-Google analytics
+# Google analytics
 ga_tracking_id: "UA-158958259-1"
 
 # Analytics
