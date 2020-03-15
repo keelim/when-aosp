@@ -18,7 +18,6 @@ permalink: /about/
   
 ---
 
-
 <!-- ## Projects
 ### Personal Projects  
 ..empty..  
