@@ -688,8 +688,8 @@ app process : invocation API loads Java VM
 
 ## references
 
-- [https://source.android.com]
-- [https://developer.android.com]
+- <https://source.android.com>
+- <https://developer.android.com>
 - 인사이드 안드로이드
 - Android Internals Vol 1
 - Embedded Android
