@@ -5,6 +5,10 @@
 - 기존 해결방법 리뷰, 각자 해결방법 스케치 하기
 - 각각 root directory 해결방안 (김재현, teammember1, teammemebr2)
 
+- 김재현
+- teammember1
+- teammember2
+
 3회: 팀 해결방법 투표
 - 각자 해결방법에 대한 토의 및 투표
 
