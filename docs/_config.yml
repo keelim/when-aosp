@@ -9,12 +9,12 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: AOSP study
-subtitle: "A simple yet classy theme for your Jekyll website or blog"
+title: MY AOSP
+subtitle: "aosp"
 email: kimh00335@gmail.com
 name: Keelim
 description: >
-  A simple yet classy theme for your Jekyll website or blog.
+  aosp
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
@@ -25,7 +25,7 @@ logo: "/assets/logo.png"
 
 # Build settings
 markdown: kramdown
-paginate: 5
+paginate: 10
 paginate_path: "/page:num/"
 inter_post_navigation: false
 highlightjs_theme: "github"
