@@ -15,6 +15,8 @@ toc_sticky: true
 
 ### View System 뷰시스템
 
+### 7개의 매니저
+
 ### Activity Manager
 
 ### Location Manager
