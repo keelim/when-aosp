@@ -39,7 +39,24 @@ toc_sticky: true
 - rendering을 하기 위해서는 glRenderer 가 필요하다
 
 
-### 알아봐야 하는 것
+### 자바 API 지원하는 클래스
+
+![windowmanger 클래스](assets\windowmanger.png)
+
+// window manger 설명하기
+
+// 메서드 분석하기 
+// View Manager 설명하기
+
+### WindowManager 분석 시작
+WWindowManger 는 aidl, java 파일러 
+
+
+### 향후 계획
+
+window manger 좀 더 알아보기
+안드로이드 빌드 환경 구성 (램, SSD)
+안드로이드 넥서스 -> 개인 개발 + 테스트용
 
 ```java
 Surface
@@ -50,5 +67,3 @@ HWC, SurfaceFlinger, glSurfaceView, glRenderer
 
 출처: https://arabiannight.tistory.com/entry/343 [아라비안나이트]
 
-### 자바 API 지원하는 클래스
-![windowmanger 클래스](assets\windowmanger.png)
