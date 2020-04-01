@@ -845,8 +845,7 @@ public final class WindowManagerImpl implements WindowManager {
 ```
 
 ### WindowGlobal 
-
-!(WindowGlobal 중)[https://raw.githubusercontent.com/keelim/AOSP/master/docs/assets/windowglobal1.png]
+!(WindowGlobal)[https://raw.githubusercontent.com/keelim/AOSP/master/docs/assets/windowglobal1.png]
 
 ### Binder
 
