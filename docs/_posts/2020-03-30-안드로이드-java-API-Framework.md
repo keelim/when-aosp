@@ -845,12 +845,12 @@ public final class WindowManagerImpl implements WindowManager {
 ```
 
 ### WindowGlobal 
-!(WindowGlobal)[https://raw.githubusercontent.com/keelim/AOSP/master/docs/assets/windowglobal1.png]
+![WindowGlobal](https://raw.githubusercontent.com/keelim/AOSP/master/docs/assets/windowglobal1.png)
 
 ### Binder
 
 각각의 독립된 프로세스를 연결해주는 역할을 하는 것 (IPC)
-!(Binder)[http://oss.kr/oss/images/news/000000005592-0003.jpg]
+![Binder](http://oss.kr/oss/images/news/000000005592-0003.jpg)
 
 ### 앞으로
 
