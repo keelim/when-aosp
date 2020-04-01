@@ -41,7 +41,7 @@ toc_sticky: true
 
 ### 자바 API 지원하는 클래스
 
-![windowmanger 클래스](assets\windowmanger.png)
+![windowmanger 클래스](/assets/windowmanger.png)
 
 // window manger 설명하기
 
@@ -49,7 +49,7 @@ toc_sticky: true
 // View Manager 설명하기
 
 ### WindowManager 분석 시작
-WWindowManger 는 aidl, java 파일러 
+WindowManger 
 
 
 ### 향후 계획
