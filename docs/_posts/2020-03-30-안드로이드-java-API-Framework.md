@@ -871,3 +871,4 @@ HWC, SurfaceFlinger, glSurfaceView, glRenderer
 - [https://developer.android.com/reference/android/view/WindowManager.LayoutParams]
 - [https://developer.android.com/reference/android/view/WindowManager]
 - [https://en.wikipedia.org/wiki/Skia_Graphics_Engine]
+- [http://oss.kr/oss/images/news/]
