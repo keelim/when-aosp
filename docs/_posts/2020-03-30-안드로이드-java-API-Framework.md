@@ -157,7 +157,7 @@ public interface WindowManager extends ViewManager { // WindowManager로 되어 
         public static final int MEMORY_TYPE_CHANGED = 256;
         /** @deprecated */
         @Deprecated
-        public static final int MEMORY_TYPE_GPU = 2; 
+        public static final int MEMORY_TYPE_GPU = 2;
         //todo 메모리 타입에 대한 옵션? (Go와 연관 지을 수 있을까?)
         //혹은 다른 최적화 방안이라도
         /** @deprecated */
@@ -844,7 +844,8 @@ public final class WindowManagerImpl implements WindowManager {
 }
 ```
 
-### WindowGlobal 
+### WindowGlobal
+
 ![WindowGlobal](https://raw.githubusercontent.com/keelim/AOSP/master/docs/assets/windowglobal1.png)
 
 ### Binder
@@ -867,8 +868,8 @@ HWC, SurfaceFlinger, glSurfaceView, glRenderer
 
 ### 참고
 
-- [https://arabiannight.tistory.com/entry/343]
-- [https://developer.android.com/reference/android/view/WindowManager.LayoutParams]
-- [https://developer.android.com/reference/android/view/WindowManager]
-- [https://en.wikipedia.org/wiki/Skia_Graphics_Engine]
-- [http://oss.kr/oss/images/news/]
+- [<https://arabiannight.tistory.com/entry/343]>
+- [<https://developer.android.com/reference/android/view/WindowManager.LayoutParams]>
+- [<https://developer.android.com/reference/android/view/WindowManager]>
+- [<https://en.wikipedia.org/wiki/Skia_Graphics_Engine]>
+- [<http://oss.kr/oss/images/news/]>
