@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "바인더"
-date: 2020-03-30 00:00:01
+date: 2020-04-07 00:00:01
 author: Keelim
 categories: AOSP
 comments: true
