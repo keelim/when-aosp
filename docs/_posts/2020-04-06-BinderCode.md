@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "바인더"
+title: "바인더(2)"
 date: 2020-04-07 00:00:01
 author: Keelim
 categories: AOSP
