@@ -14,8 +14,8 @@ toc_sticky: true
 각 WindowManager 인스턴스는 특정 디스플레이에 바인딩됩니다.
 다른 디스플레이에 대한 WindowManager를 얻으려면 Context # createDisplayContext를 사용하여
 해당 디스플레이에 대한 컨텍스트를 얻은 다음 
-`Context.getSystemService (Context.WINDOW_SERVICE)`를 사용하여 WindowManager를 가져옵니다.
---> 이 과정의 코드를 따라가고자 합니다.
+`Context.getSystemService (Context.WINDOW_SERVICE)`를 사용하여 WindowManager를 가져옴
+
 
 ## 1
 
@@ -45,23 +45,36 @@ getWindowMangerService() 메소드를 통하여 접근해보자
 
 ![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm4.png?raw=true)
 
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm5.png?raw=true)
+
 ## 3
+aidl IWindowManager에 대한 설명
+![그림]https://t1.daumcdn.net/cfile/tistory/2361873754C292C81F
+안드로이드 aidl 파일을 이용을 하여서 프로세스 간의 IPC를 통해 상호 작용하는 코드를 만드는 인터페이스 정의 언어
+따라서, 이를 이용하면 최종적으로 서비스 인터페잇, 서비스 프록시, 서비스 스텁 코드가 생성된다.
+
+`서비스 인터페이스` 서비스 프록시와 서비스가 서로 동일한 인터페이스 공유하기 위한 함수 정의
+서비스와 IBinder 사이에 형변화 기능 구현
+
+`서비스 프록시` 바인더 RPC 를 위한 RPC 코드와 데이터 생성
 
 ## 4
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm6.png?raw=true)
 
 ## 5
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm7.png?raw=true)
+
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm8.png?raw=true)
+
+IWindowManger 에서 정의된 startViewServer 로 이동 하지만 인터페이스로 내용없다 -> 그럼 어디?
 
 ## 6
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm9.png?raw=true)
 
-## 7
+이번에 확인하고 싶은 것은 네이티브 단계 위인 `Java` 레벨에서 확인을 하고 싶었다.
+다음 코드는 중간 과정인 WindwoManager  에서 Binder를 확인하자
 
-## 8
 
-## 9
-
-## 10
-
-## 11
 
 ### 참고
 
