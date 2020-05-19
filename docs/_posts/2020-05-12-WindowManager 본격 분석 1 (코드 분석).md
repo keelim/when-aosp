@@ -16,7 +16,6 @@ toc_sticky: true
 해당 디스플레이에 대한 컨텍스트를 얻은 다음
 `Context.getSystemService (Context.WINDOW_SERVICE)`를 사용하여 WindowManager를 가져옴
 
-
 ## 1
 
 //wm 1
@@ -28,7 +27,7 @@ Window Manager
 
 ![ActivityManager](https://github.com/keelim/AOSP/blob/master/docs/assets/service4.png?raw=true)
 
-이 과정을  `Window Manger`에서 다시 확인 일단은 바인더 아래 영역이 아니라 바인더 위에 자바 프레임워크 레벨까지만
+이 과정을 `Window Manger`에서 다시 확인 일단은 바인더 아래 영역이 아니라 바인더 위에 자바 프레임워크 레벨까지만
 
 ## 2
 
@@ -37,7 +36,7 @@ Window Manager
 ![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm3.png?raw=true)
 
 getWindowMangerService() 메소드를 통하여 접근해보자
-접근 전에 definition을 한번 보았을 때  `IBInder instance` 를 넘겨준다.
+접근 전에 definition을 한번 보았을 때 `IBInder instance` 를 넘겨준다.
 여기서 확인할 것은 서비스 매니저에서 `window` 관련 바인더를 찾아 넘겨준다는 것이다.
 ![그림](https://t1.daumcdn.net/cfile/tistory/247B334A56A6248B3A)
 
@@ -83,7 +82,7 @@ IWindowManger 에서 정의된 startViewServer 로 이동 하지만 인터페이
 ![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/wm9.png?raw=true)
 
 이번에 확인하고 싶은 것은 네이티브 단계 위인 `Java` 레벨에서 확인을 하고 싶었다.
-다음 코드는 중간 과정인 WindwoManager  에서 Binder를 확인하자
+다음 코드는 중간 과정인 WindwoManager 에서 Binder를 확인하자
 
 ### 참고
 
