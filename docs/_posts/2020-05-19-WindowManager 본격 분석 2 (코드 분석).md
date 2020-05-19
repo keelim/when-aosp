@@ -18,7 +18,7 @@ toc_sticky: true
 `Core Platform Service` 어플리케이션과는 직접 상호작용은 하지 않지만 안드로이드 프레임워크가 종작하는데 필수적인 서비스
 
 `Activity Manger`, `Package Manger` 우연찮게 겹친다.
-
+![그림](https://source.android.com/devices/graphics/images/ape_fwk_graphics.png)
 ![그림](https://github.com/keelim/AOSP/blob/master/docs/assets/as1.png?raw=true)
 
 ### 안드로이드 플랫폼 이해 용어 정리 --> 용어 정리를 다시 해보았습니다
