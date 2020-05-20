@@ -76,7 +76,7 @@ public int addWindow(Session session, IWindow client, int seq,
             Rect outContentInsets, Rect outStableInsets, Rect outOutsets,
             DisplayCutout.ParcelableWrapper outDisplayCutout, InputChannel outInputChannel,
             InsetsState outInsetsState) {
-        int[] appOp = new int[1];
+        int[] appOp = new int[1]; //1 배열이 필요한 이유?
         int res = mPolicy.checkAddPermission(attrs, appOp);
         if (res != WindowManagerGlobal.ADD_OKAY) {
             return res;
