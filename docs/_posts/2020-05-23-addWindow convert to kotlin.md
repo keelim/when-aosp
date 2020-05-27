@@ -9,6 +9,205 @@ toc: true
 toc_sticky: true
 ---
 
+이번 포스팅은 저번에 분석한 addWindow 를 추가로 분석하기로 하자.
+저번 미팅에서 개선할 사항 후부로 옮길 수 있는 것은?
+
+1. kotlin 으로 변환을 하여 synchronized 처리를 하는데에 `coroutine` 을 사용을 하는 것
+   - 확장으로 따로 VM 을 올려서 성능 향상이 가능한지를 체크
+2. 중복된 if else 문에 `Hashing`을 도입을 해보는 것 // 이전 PackageManger 에서 비슷한 내용을 본 것 같다.
+3. 배열 1 // -> 이 부분은 앞으로를 위해 있을 수 있다//
+
+이렇게 정리를 할 수 있다. 앞으로의 아이디어는 계속 적어놓자.
+
+오늘 진행할 내용은 addWindow 에서 로그처리를 제외한 그 이후 부분이다.
+
+## addWindow 어디서 사용하는지
+
+## Window 에 대한 개념
+
+![그림](https://miro.medium.com/max/2160/1*z15f9yf-mMXlC_dyFZc9Ig.png)
+
+`Surface`는 화면에 합성되는 픽셀을 보유한 객체입니다.
+화면에 표시되는 모든 `Window`는 자신만의 `Surface`가 포함되어 있으며, `Surface Flinger`가 여러 소스로부터 그래픽 데이터 버퍼를 받고,
+그것들을 합성해서 Display로 보냅니다.
+
+개별 Surface는 \*\*이중 버퍼 렌더링을 위한 1개 이상(보통 2개)의 버퍼를 가집니다.
+
+### SurfaceView
+
+View는 Main Thread에서 캔버스를 그리기 때문에, 그리기를 하는 동안에는 사용자의 입력을 받을 수 없고 
+그로 인해 반응성이 좋지 못합니다. 그렇다고 그리는 작업을 별도의 작업 스레드에서 처리하고 싶어도 안드로이드 정책 상 Main Thread가 아닌 
+별도의 Thread에서는 UI 관련 작업을 할 수도 없습니다. 이럴때 사용할 수 있는게 `SurfaceView`
+
+SurfaceView는 Canvas 아닌 Surface(=가상 메모리 화면)에 그리고 그려진 Surface를 화면에 뿌리기 때문에 게임이나, 
+카메라 같은 높은 반응성이 필요한 UI 작업이 필요한 경우 사용.
+
+뷰가 그려지는 과정, View Hierachy 살펴보기, 뷰 관련 용어 잡기, 카메라 관련 코드 다시 보자
+
+## 나머지 코드 설명
+
+```java
+            res = WindowManagerGlobal.ADD_OKAY;
+            if (displayContent.mCurrentFocus == null) {
+                displayContent.mWinAddedSinceNullFocus.add(win);
+            }
+
+            if (excludeWindowTypeFromTapOutTask(type)) {
+                displayContent.mTapExcludedWindows.add(win);
+            }
+
+            origId = Binder.clearCallingIdentity();
+
+            win.attach();
+            mWindowMap.put(client.asBinder(), win);
+
+            win.initAppOpsState();
+
+            final boolean suspended = mPmInternal.isPackageSuspended(win.getOwningPackage(),
+                    UserHandle.getUserId(win.getOwningUid()));
+            win.setHiddenWhileSuspended(suspended);
+
+            final boolean hideSystemAlertWindows = !mHidingNonSystemOverlayWindows.isEmpty();
+            win.setForceHideNonSystemOverlayWindowIfNeeded(hideSystemAlertWindows);
+
+            final AppWindowToken aToken = token.asAppWindowToken();
+            if (type == TYPE_APPLICATION_STARTING && aToken != null) {
+                aToken.startingWindow = win;
+                if (DEBUG_STARTING_WINDOW) Slog.v (TAG_WM, "addWindow: " + aToken
+                        + " startingWindow=" + win);
+            }
+
+            boolean imMayMove = true;
+
+            win.mToken.addWindow(win);
+            if (type == TYPE_INPUT_METHOD) {
+                displayContent.setInputMethodWindowLocked(win);
+                imMayMove = false;
+            } else if (type == TYPE_INPUT_METHOD_DIALOG) {
+                displayContent.computeImeTarget(true /* updateImeTarget */);
+                imMayMove = false;
+            } else {
+                if (type == TYPE_WALLPAPER) {
+                    displayContent.mWallpaperController.clearLastWallpaperTimeoutTime();
+                    displayContent.pendingLayoutChanges |= FINISH_LAYOUT_REDO_WALLPAPER;
+                } else if ((attrs.flags&FLAG_SHOW_WALLPAPER) != 0) {
+                    displayContent.pendingLayoutChanges |= FINISH_LAYOUT_REDO_WALLPAPER;
+                } else if (displayContent.mWallpaperController.isBelowWallpaperTarget(win)) {
+                    // If there is currently a wallpaper being shown, and
+                    // the base layer of the new window is below the current
+                    // layer of the target window, then adjust the wallpaper.
+                    // This is to avoid a new window being placed between the
+                    // wallpaper and its target.
+                    displayContent.pendingLayoutChanges |= FINISH_LAYOUT_REDO_WALLPAPER;
+                }
+            }
+
+            // If the window is being added to a stack that's currently adjusted for IME,
+            // make sure to apply the same adjust to this new window.
+            win.applyAdjustForImeIfNeeded();
+
+            if (type == TYPE_DOCK_DIVIDER) {
+                mRoot.getDisplayContent(displayId).getDockedDividerController().setWindow(win);
+            }
+
+            final WindowStateAnimator winAnimator = win.mWinAnimator;
+            winAnimator.mEnterAnimationPending = true;
+            winAnimator.mEnteringAnimation = true;
+            // Check if we need to prepare a transition for replacing window first.
+            if (atoken != null && atoken.isVisible()
+                    && !prepareWindowReplacementTransition(atoken)) {
+                // If not, check if need to set up a dummy transition during display freeze
+                // so that the unfreeze wait for the apps to draw. This might be needed if
+                // the app is relaunching.
+                prepareNoneTransitionForRelaunching(atoken);
+            }
+
+            final DisplayFrames displayFrames = displayContent.mDisplayFrames;
+            // TODO: Not sure if onDisplayInfoUpdated() call is needed.
+            final DisplayInfo displayInfo = displayContent.getDisplayInfo();
+            displayFrames.onDisplayInfoUpdated(displayInfo,
+                    displayContent.calculateDisplayCutoutForRotation(displayInfo.rotation));
+            final Rect taskBounds;
+            final boolean floatingStack;
+            if (atoken != null && atoken.getTask() != null) {
+                taskBounds = mTmpRect;
+                atoken.getTask().getBounds(mTmpRect);
+                floatingStack = atoken.getTask().isFloating();
+            } else {
+                taskBounds = null;
+                floatingStack = false;
+            }
+            if (displayPolicy.getLayoutHintLw(win.mAttrs, taskBounds, displayFrames, floatingStack,
+                    outFrame, outContentInsets, outStableInsets, outOutsets, outDisplayCutout)) {
+                res |= WindowManagerGlobal.ADD_FLAG_ALWAYS_CONSUME_SYSTEM_BARS;
+            }
+            outInsetsState.set(displayContent.getInsetsStateController().getInsetsForDispatch(win));
+
+            if (mInTouchMode) {
+                res |= WindowManagerGlobal.ADD_FLAG_IN_TOUCH_MODE;
+            }
+            if (win.mAppToken == null || !win.mAppToken.isClientHidden()) {
+                res |= WindowManagerGlobal.ADD_FLAG_APP_VISIBLE;
+            }
+
+            displayContent.getInputMonitor().setUpdateInputWindowsNeededLw();
+
+            boolean focusChanged = false;
+            if (win.canReceiveKeys()) {
+                focusChanged = updateFocusedWindowLocked(UPDATE_FOCUS_WILL_ASSIGN_LAYERS,
+                        false /*updateInputWindows*/);
+                if (focusChanged) {
+                    imMayMove = false;
+                }
+            }
+
+            if (imMayMove) {
+                displayContent.computeImeTarget(true /* updateImeTarget */);
+            }
+
+            // Don't do layout here, the window must call
+            // relayout to be displayed, so we'll do it there.
+            win.getParent().assignChildLayers();
+
+            if (focusChanged) {
+                displayContent.getInputMonitor().setInputFocusLw(displayContent.mCurrentFocus,
+                        false /*updateInputWindows*/);
+            }
+            displayContent.getInputMonitor().updateInputWindowsLw(false /*force*/);
+
+            if (localLOGV || DEBUG_ADD_REMOVE) Slog.v(TAG_WM, "addWindow: New client "
+                    + client.asBinder() + ": window=" + win + " Callers=" + Debug.getCallers(5));
+
+            if (win.isVisibleOrAdding() && displayContent.updateOrientationFromAppTokens()) {
+                reportNewConfig = true;
+            }
+        }
+
+        if (reportNewConfig) {
+            sendNewConfiguration(displayId);
+        }
+
+        Binder.restoreCallingIdentity(origId);
+
+        return res;
+    }
+```
+
+## 코루틴
+
+코틀린에서만 쓰이는 개념이 아니며 이는
+
+1. 협력형 멀티 태스킹
+2. 동시성 프로그래밍 지원
+3. 비동기 처리를 쉽게 도와줌
+
+이를 해결 할 수 있게 한다.
+
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/coro1.png?raw=true)
+
+
+### `코틀린으로 임의로 변경해보았다.`
+
 ```kotlin
 import android.graphics.Rect
 import android.os.Binder
@@ -473,3 +672,5 @@ class WindowManagerService {
 - [<http://oss.kr/]>
 - 인사이드 안드로이드
 - [<https://cs.android.com/>]
+- 안드로이드 뷰가 그려지는 과정 [https://jungwoon.github.io/android/2019/10/02/How-to-draw-View/]
+- 코루틴 [https://wooooooak.github.io/kotlin/2019/08/25/%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%BD%94%EB%A3%A8%ED%8B%B4-%EA%B0%9C%EB%85%90-%EC%9D%B5%ED%9E%88%EA%B8%B0/]
