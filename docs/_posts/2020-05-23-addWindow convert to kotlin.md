@@ -35,11 +35,11 @@ toc_sticky: true
 
 ### SurfaceView
 
-View는 Main Thread에서 캔버스를 그리기 때문에, 그리기를 하는 동안에는 사용자의 입력을 받을 수 없고 
-그로 인해 반응성이 좋지 못합니다. 그렇다고 그리는 작업을 별도의 작업 스레드에서 처리하고 싶어도 안드로이드 정책 상 Main Thread가 아닌 
+View는 Main Thread에서 캔버스를 그리기 때문에, 그리기를 하는 동안에는 사용자의 입력을 받을 수 없고
+그로 인해 반응성이 좋지 못합니다. 그렇다고 그리는 작업을 별도의 작업 스레드에서 처리하고 싶어도 안드로이드 정책 상 Main Thread가 아닌
 별도의 Thread에서는 UI 관련 작업을 할 수도 없습니다. 이럴때 사용할 수 있는게 `SurfaceView`
 
-SurfaceView는 Canvas 아닌 Surface(=가상 메모리 화면)에 그리고 그려진 Surface를 화면에 뿌리기 때문에 게임이나, 
+SurfaceView는 Canvas 아닌 Surface(=가상 메모리 화면)에 그리고 그려진 Surface를 화면에 뿌리기 때문에 게임이나,
 카메라 같은 높은 반응성이 필요한 UI 작업이 필요한 경우 사용.
 
 뷰가 그려지는 과정, View Hierachy 살펴보기, 뷰 관련 용어 잡기, 카메라 관련 코드 다시 보자
@@ -204,7 +204,6 @@ SurfaceView는 Canvas 아닌 Surface(=가상 메모리 화면)에 그리고 그�
 이를 해결 할 수 있게 한다.
 
 ![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/coro1.png?raw=true)
-
 
 ### `코틀린으로 임의로 변경해보았다.`
 
