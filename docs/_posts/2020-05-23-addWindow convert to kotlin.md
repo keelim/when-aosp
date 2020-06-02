@@ -203,7 +203,7 @@ SurfaceView는 Canvas 아닌 Surface(=가상 메모리 화면)에 그리고 그�
 
 이를 해결 할 수 있게 한다.
 
-![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/coro1.png?raw=true)
+![구성](https://github.com/keelim/AOSP/blob/master/docs/assets/reset1.png?raw=true)
 
 ### `코틀린으로 임의로 변경해보았다.`
 
