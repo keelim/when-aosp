@@ -26,14 +26,19 @@ toc_sticky: true
 - 어노테이션은 안건드리는 것이 좋을 것 같다. -> 다른 라이브러리가 개입을 하는 부분일 수 있기 때문이다.
 - 구글 레퍼런스 기기 (nexus 시리즈나, pixel 시리즈) 를 활용하는 것이 좋다. -> nexus 는 지원을 안하는 것일 수 있다.
 
-### 시작
+### 시작하기
 
 우선 연관되는 클래스를 전부 나열하기
 우선 WindowMnager 는 `interface` 안에도 코드가 있기 때문에 포함을 한다.
 todo 로 코멘트 남기면서 보았다.
 
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo0.png?raw=true)
+
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo1.png?raw=true)
+
+`Pixel 1` --> Android 10 지으로 빌드 하려는 안드로이드 오레오(8, 8.1) 대응 가능
+
+빌드 환경 구성 --> wsl+docker, 클라우드 (알아볼 것), pure Linux 등을 정하는 것이 좋을 것 같다
 
 ---
 
