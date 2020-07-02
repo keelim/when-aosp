@@ -15,7 +15,7 @@ toc_sticky: true
 프로젝트에서 우리가 수행을 하는 것은 2가지로 나눌 수 있는 것 같다.
 `성능 검증`, `빌드, 포팅 반복`
 
-`성능 검증`의 경우 지금 WindowManager 관련 Class 를 보고 중첩되는 `if - else`, `디자인 패턴 변경 가능성`
+`성능 검증`의 경우 지금 WindowManager 관련 `class` 를 보고 중첩되는 `if - else`, `디자인 패턴 변경 가능성`
 등을 찾아서 코드를 따라가면서 `//todo` 코멘트를 달면서 진행을 한다.
 
 `빌드, 포팅 반복` 의 경우 실험 기기는 `pixel1` 인 구글 레펀런스 폰으로 최대한 포팅과정을 깔끔하게 했다.
@@ -29,7 +29,7 @@ toc_sticky: true
 ### 시작
 
 우선 연관되는 클래스를 전부 나열하기
-우선 WindowMnager 는 interface 안에도 코드가 있기 때문에 포함을 한다.
+우선 WindowMnager 는 `interface` 안에도 코드가 있기 때문에 포함을 한다.
 todo 로 코멘트 남기면서 보았다.
 
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo0.png?raw=true)
@@ -39,28 +39,43 @@ todo 로 코멘트 남기면서 보았다.
 
 #### application side
 
-interface ViewManager
-interface WindowManager
-class ViewRootImpl
-class Window
-class WindowContentFraneStats
-class WindowManageGlobal
-class WindowManagerImpl
+`interface` ViewManager
+
+`interface` WindowManager
+
+`class` ViewRootImpl
+
+`class` Window
+
+`class` WindowContentFraneStats
+
+`class` WindowManageGlobal
+
+`class` WindowManagerImpl
 
 ---
 
 #### server side
 
-interface IWindowManager
-interface IWindowSession
-interface IWindowSessionCallback
-class WindowConfiguration
-class WindowHashMap
-class WindowList
-class WindowManagerDebugConfig
-class WindowManagerGlobalLock
-class WindowManagerService
-class WidwoMangerServiceDumpProto
+`interface` IWindowManager
+
+`interface` IWindowSession
+
+`interface` IWindowSessionCallback
+
+`class` WindowConfiguration
+
+`class` WindowHashMap
+
+`class` WindowList
+
+`class` WindowManagerDebugConfig
+
+`class` WindowManagerGlobalLock
+
+`class` WindowManagerService
+
+`class` WidwoMangerServiceDumpProto
 
 ### 생각하는 3가지 개선할 수 있는 것 같은 것
 
@@ -72,7 +87,7 @@ class WidwoMangerServiceDumpProto
 2. WindowList --> ArrayList 확장 본인 생각은 그냥 queue
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo_best2.png?raw=true)
 
-3. Annomymous class -> lambda 메모릭 방지 Runnable 직접 구현한 형태도 많이 보인다.  
+3. Annomymous `class` -> lambda 메모릭 방지 Runnable 직접 구현한 형태도 많이 보인다.  
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo_best3.png?raw=true)
 
 ---
@@ -80,7 +95,7 @@ class WidwoMangerServiceDumpProto
 ### other section
 
 1. application --> Object 처리
-   server --> WindowManagerGlobalLock (just class) android bp 참조
+   server --> WindowManagerGlobalLock (just `class`) android bp 참조
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo_sub1.png?raw=true)
 2. Generic 이상한 부분 컴파일러는 대단하다.
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo_sub2.png?raw=true)
@@ -88,7 +103,7 @@ class WidwoMangerServiceDumpProto
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/todo_sub3.png?raw=true)
 4. 많은 if else 부분
 5. 불필요한 if --> 바로 inline return
-6. 번외) 텔레스코핑 패턴 (Rect class, WindowManager.LayoutParams)
+6. 번외) 텔레스코핑 패턴 (Rect `class`, WindowManager.LayoutParams)
 
 ### 참고문헌
 
