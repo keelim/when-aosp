@@ -14,9 +14,9 @@ toc_sticky: true
 저번에 발견한 레퍼런스를 토대로 해서 Anonymous class 와 lambda 를 사용을 함에 있어서
 컴파일을 하여 smail를 바이트 코드로 확인을 하여 Memory leak의 대한 가능성을 확인을 한다.
 
-`결론적으로 ]] )) 는 동일하게 클래스 파일을 만들지 않는다.` 이제부터 그 결과를 조금씩 풀어나가면
+`결론적으로 익명클래스와 람다는 는 동일하게 작동하지는 않는다.` 이제부터 그 결과를 조금씩 풀어나가면
 
-우선 )) 개념은 Java 적으로 볼 때 Java 8 이 업데이트를 한 이 후 추가된 기능으로써 익명 함수를 정의하는
+우선은 개념은 Java 적으로 볼 때 Java 8 이 업데이트를 한 이 후 추가된 기능으로써 익명 함수를 정의하는
 간편한 방법이다. 사용법은 함수형 인터페이스 `(단 하나의 메소드만이 선언된 인터페이스)` 만이 이를 람다식으로
 전환을 할 수 있다.
 
@@ -32,10 +32,7 @@ toc_sticky: true
 
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/ru3.png?raw=true)
 
-
-
 와 같이 `.class` 파일들이 만들어 지는 것을 확인 할 수 있다. 이를 살펴보자
-
 
 ## JavaLeakActivity
 
@@ -100,7 +97,7 @@ toc_sticky: true
 
 ```
 
-## JavaLeakActivity$1
+## JavaLeakActivity\$1
 
 ```java
 .class Lcom/keelim/aosp_code/JavaLeakActivity$1;
@@ -226,7 +223,6 @@ toc_sticky: true
 
 ```
 
-
 ## 2kind
 
 ```java
@@ -274,7 +270,6 @@ toc_sticky: true
 .end method
 
 ```
-
 
 바이트 코드 주석을 따라가면서 읽어 보자
 
