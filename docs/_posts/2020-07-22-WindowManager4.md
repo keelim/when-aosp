@@ -131,8 +131,10 @@ public int afterTest() {
 ```
 
 `WindowManagerService` 안에 있는 addWindow 부분 중 오류 처리를 담당을 하고 있는 부분이다. 
+
 이에 이곳에서 if~else, nested if 등의 문제가 있어 이를 해결을 하기 위하여 EnumMap 을 사용을 하여
-static field 를 참조하는 것과 enumMap 중 속도 향상 있는 것을 확인 한다. 
+
+`static field` 를 참조하는 것과 enumMap 중 속도 향상 있는 것을 확인 한다. 
 
 
 ```java 
@@ -268,8 +270,10 @@ public int afterTest2() {
         return 0;
     } //todo change switch case statement
 ```
-위 코드는 우선 적정한 형태를 만들기 위하여 `switch - case statement`를 활용을 함으로써 enumMap 을 사용하기 편하도록 한다. 또한
- if 문이 중첩된 상황이라 판단을 하여 `switch - case statement` 를 사용을 하는 것이 좋을 것이라 판단했다. 
+
+위 코드는 우선 적정한 형태를 만들기 위하여 `switch - case statement`를 활용을 함으로써 enumMap 을 사용하기 편하도록 한다. 
+
+또한 if 문이 중첩된 상황이라 판단을 하여 `switch - case statement` 를 사용을 하는 것이 좋을 것이라 판단했다. 
  
  ## EnumMap 의 사용
  
@@ -461,6 +465,7 @@ public int afterTest4() { // EnumMap @AfterEnum
 ```
  
  `EnumMap`을 통하여 작성한 수정된 메소드 이다. 아직 `token` 이 없는 로직처리를 좋으나 
+ 
  `token`이 있는 로직은 수정이 필요할 것 같다.
  
 
