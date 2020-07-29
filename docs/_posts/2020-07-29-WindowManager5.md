@@ -184,6 +184,7 @@ switch case 문도, hashMap, enumMap
 
 <script src="https://gist.github.com/keelim/2282e666f1a3b8fecdc03b74e5f6c59e.js"></script>
 
+
 <script src="https://gist.github.com/keelim/e6a04c99c9002a91129127d0b993cfac.js"></script>
 
 
@@ -192,6 +193,7 @@ switch case 문도, hashMap, enumMap
 
 
 초기화 코드 길어지고 구현 코드 짧아지고 
+
 <script src="https://gist.github.com/keelim/0d614157d63a6159512e239a55652599.js"></script>
 
 
