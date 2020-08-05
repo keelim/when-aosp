@@ -14,6 +14,8 @@ toc_sticky: true
 
 ![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/test1.png?raw=true)
 
+<https://github.com/keelim/AOSPTesting/tree/master>
+
 ## 새로운 해결점 찾기
 
  
