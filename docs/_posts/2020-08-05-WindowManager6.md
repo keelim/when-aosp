@@ -12,6 +12,8 @@ toc_sticky: true
 
 <script src="https://gist.github.com/keelim/dfc3adce8657d78a7a5f3fd2d7a91e4d.js"></script>
 
+![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/test1.png?raw=true)
+
 ## 새로운 해결점 찾기
 
  
