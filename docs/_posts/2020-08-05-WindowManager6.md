@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "WindowManager5"
-date: 2020-07-28 00:00:01
+title: "WindowManager6"
+date: 2020-08-05 00:00:01
 author: Keelim
 categories: AOSP
 comments: true
