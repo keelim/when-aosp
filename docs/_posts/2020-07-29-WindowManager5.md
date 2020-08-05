@@ -15,6 +15,7 @@ switch case 문도, hashMap, enumMap
 <script src="https://gist.github.com/keelim/e6a04c99c9002a91129127d0b993cfac.js"></script>
 
 
+![force_compile](https://github.com/keelim/AOSP/blob/master/docs/assets/test1.png?raw=true)
  
 
 ### 🧶 모든 문서는 수정될 수 있습니다
