@@ -8,7 +8,9 @@ comments: true
 toc: true
 toc_sticky: true
 ---
+
 ## Java 함수형 인터페이스를 통해 초기화를 하고 이를 통해서 람다를 담을 수 있도록 한다.
+
 기본 함수형 인터페이스
 Runnable
 Supplier
@@ -74,6 +76,7 @@ printString.andThen(printString2).accept("me");
 ```
 
 Function Function<T, R>는 T타입의 인자 받고, R타입의 객체를 리턴
+
 ```
 public interface Function<T, R> {
     R apply(T t);
@@ -100,8 +103,8 @@ System.out.println(result);
 // 6
 ```
 
-compose()는 두개의 Function을 조합하여 새로운 Function 객체를 만들어주는 메소드입니다. 
-주의할 점은 andThen()과는 실행 순서가 반대입니다. 
+compose()는 두개의 Function을 조합하여 새로운 Function 객체를 만들어주는 메소드입니다.
+주의할 점은 andThen()과는 실행 순서가 반대입니다.
 compose()에 인자로 전달되는 Function이 먼저 수행되고 그 이후에 호출하는 객체의 Function이 수행됩니다.
 
 예를들어, 다음과 같이 compose를 사용하여 새로운 Function을 만들 수 있습니다. apply를 호출하면 add 먼저 수행되고 그 이후에 multiply가 수행됩니다.
@@ -117,7 +120,9 @@ System.out.println(result1);
 // 결과
 // 12
 ```
+
 Predicate Predicate<T>는 T타입 인자를 받고 결과로 boolean을 리턴합니다.
+
 ```
 public interface Predicate<T> {
     boolean test(T t);
@@ -149,10 +154,11 @@ Predicate<Integer> isBiggerThanFive = num -> num > 5;
 System.out.println("10 is bigger than 5? -> " + isBiggerThanFive.test(10));
 // 결과
 // 10 is bigger than 5? -> true
-and()와 or()는 다른 Predicate와 함께 사용됩니다. 
+and()와 or()는 다른 Predicate와 함께 사용됩니다.
 ```
 
 직관적으로 and()는 두개의 Predicate가 true일 때 true를 리턴하며 or()는 두개 중에 하나만 true이면 true를 리턴합니다.
+
 ```java
 Predicate<Integer> isBiggerThanFive = num -> num > 5;
 Predicate<Integer> isLowerThanSix = num -> num < 6;
@@ -164,6 +170,7 @@ System.out.println(isBiggerThanFive.or(isLowerThanSix).test(10));
 ```
 
 isEqual()은 static 메소드로, 인자로 전달되는 객체와 같은지 체크하는 Predicate 객체를 만들어 줍니다. 다음과 같이 사용할 수 있습니다.
+
 ```java
 Predicate<String> isEquals = Predicate.isEqual("Google");
 isEquals.test("Google");
@@ -174,19 +181,14 @@ isEquals.test("Google");
 정리
 자바에서 기본적으로 제공하는 함수형 인터페이스에 대해서 알아보았습니다. 인터페이스마다 인자와 리턴타입이 다르고 이름이 다릅니다. 사용하는 목적에 맞게 이름을 지었습니다. 그렇기 때문에 실행하는 메소드 이름도 다릅니다.
 
-- - -
-
-
-
+---
 
 ## 로직 수정
+
 switch case 문도, hashMap, enumMap
 
 <script src="https://gist.github.com/keelim/2282e666f1a3b8fecdc03b74e5f6c59e.js"></script>
 
-
 <script src="https://gist.github.com/keelim/e6a04c99c9002a91129127d0b993cfac.js"></script>
-
- 
 
 ### 🧶 모든 문서는 수정될 수 있습니다
