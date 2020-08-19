@@ -101,7 +101,7 @@ public class example {
 
     void fun(){
         DisplayInfo newDisplayInfo = displayManagerInternal.getDisplayInfo(mDisplayId); // ����
-        mInfo = copyFrom(newDisplayInfo);
+        mInfo = mInfo.copyFrom(newDisplayInfo);
     }
 }
 
