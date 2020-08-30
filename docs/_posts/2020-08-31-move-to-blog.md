@@ -13,6 +13,6 @@ toc_sticky: true
 
 통합을 위하여 블로그가 이전 됩니다.
 
-https://cnuaosp.github.io/AP_Android_Performance/
+[블로그 이전]<https://cnuaosp.github.io/AP_Android_Performance/>
 
 ### 🧶 모든 문서는 수정될 수 있습니다
