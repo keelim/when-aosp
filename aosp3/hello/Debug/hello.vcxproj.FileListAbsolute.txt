@@ -1,0 +1,2 @@
+C:\Users\h0033\Desktop\JNI\hello\Debug\hello.dll
+C:\Users\h0033\Desktop\JNI\hello\Debug\hello.pdb
